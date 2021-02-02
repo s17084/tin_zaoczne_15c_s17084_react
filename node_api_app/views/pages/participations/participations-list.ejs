@@ -1,0 +1,55 @@
+<%- include('../../fragments/header') %>
+<main>
+    <h2>Participations</h2>
+    <table class="table-list">
+        <thead>
+        <tr>
+            <th>Player</th>
+            <th>Tournament</th>
+            <th>Final position</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for (let p of participations) { %>
+            <tr>
+                <td>
+                    <a href="/players/details/<%= p.player._id %>">
+                        <%= p.player.firstName + ' ' + p.player.lastName %>
+                    </a>
+                </td>
+                <td>
+                    <a href="/tournaments/details/<%= p.tournament._id %>">
+                        <%= p.tournament.name %>
+                    </a>
+                </td>
+                <td><%= p.finalPosition %></td>
+                <td>
+                    <ul class="list-actions">
+                        <li>
+                            <a class="list-actions-button-details"
+                               href="/participations/details/<%= p._id %>">
+                                Details
+                            </a>
+                        </li>
+                        <li>
+                            <a class="list-actions-button-edit"
+                               href="/participations/edit/<%= p._id %>">
+                                Edit
+                            </a>
+                        </li>
+                        <li>
+                            <a class="list-actions-button-delete"
+                               href="/participations/delete/<%= p._id %>">
+                                Delete
+                            </a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+    <p><a class="button-add" href="/participations/add">Add player to tournament</a></p>
+</main>
+<%- include('../../fragments/footer') %>

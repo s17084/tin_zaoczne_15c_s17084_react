@@ -1,0 +1,130 @@
+<%- include('../../fragments/header') %>
+
+<% const isEditable = formMode === 'create' || formMode === 'edit' %>
+<% const isNotCreate = formMode !== 'create' %>
+<% const disabled = !isEditable ? 'disabled' : '' %>
+
+<script type="application/javascript" src="/js/validationCommon.js"></script>
+<script type="application/javascript" src="/js/validationPlayerForm.js"></script>
+
+<main>
+    <h2><%= pageTitle %></h2>
+    <form class="form <%= isEditable ? 'form-edit' : 'form-display' %>"
+          action="<%= formAction %>"
+          novalidate
+          method="post">
+        <!--onsubmit="return validateForm();"-->
+
+        <label for="firstName">
+            Firstname:<%- helper.ariaRequired(isEditable) %>
+        </label>
+        <input
+                type="text"
+                name="firstName"
+                id="firstName"
+                placeholder="2-60 characters"
+                oninput="resetError(this)"
+                class="<%= helper.errorClass('firstName', validationErrors) %>"
+                value="<%= helper.inputValue(body, player, 'firstName') %>"
+                <%= disabled %>/>
+        <%- helper.errorSpan(isEditable, 'firstName', validationErrors) %>
+
+        <label for="lastName">
+            Lastname:<%- helper.ariaRequired(isEditable) %>
+        </label>
+        <input
+                type="text"
+                name="lastName"
+                id="lastName"
+                placeholder="2-60 characters"
+                oninput="resetError(this)"
+                class="<%= helper.errorClass('lastName', validationErrors) %>"
+                value="<%= helper.inputValue(body, player, 'lastName') %>"
+                <%= disabled %>/>
+        <%- helper.errorSpan(isEditable, 'lastName', validationErrors) %>
+
+        <label for="email">E-mail:</label>
+        <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="e.g. name@domain.com"
+                oninput="resetError(this)"
+                class="<%= helper.errorClass('email', validationErrors) %>"
+                value="<%= helper.inputValue(body, player, 'email') %>"
+                <%= disabled %>/>
+        <%- helper.errorSpan(isEditable, 'email', validationErrors) %>
+
+        <label for="licenseNumber">
+            License number:<%- helper.ariaRequired(isEditable) %>
+        </label>
+        <input
+                type="text"
+                name="licenseNumber"
+                id="licenseNumber"
+                placeholder="6 digits number"
+                oninput="resetError(this)"
+                class="<%= helper.errorClass('licenseNumber', validationErrors) %>"
+                value="<%= helper.inputValue(body, player, 'licenseNumber') %>"
+                <%= !isEditable ? 'disabled' : '' %>/>
+        <%- helper.errorSpan(isEditable, 'licenseNumber', validationErrors) %>
+
+        <label for="birthDate">Birth date:</label>
+        <input
+                type="date"
+                name="birthDate"
+                id="birthDate"
+                oninput="resetError(this)"
+                class="<%= helper.errorClass('birthDate', validationErrors) %>"
+                value="<%= helper.inputDateValue(body, player, 'birthDate') %>"
+                <%= !isEditable ? 'disabled' : '' %>/>
+        <%- helper.errorSpan(isEditable, 'birthDate', validationErrors) %>
+
+        <div class="<%= !isEditable ? 'form-buttons' : 'form-buttons-edit' %>">
+            <% if (!isEditable) { %>
+                <p>
+                    <a class="form-button-edit"
+                       href="<%= formAction + player._id %>"><%= actionBtnLabel %></a>
+                    <a class="form-button-goback" href="/players"><%= cancelBtnLabel %></a>
+                </p>
+            <% } else { %>
+                <p id="errorsSummary" class="errors-text">
+                    <%= validationErrors.length > 0 ? 'Form is invalid' : '' %>
+                </p>
+                <p>
+                    <input class="form-button-submit" type="submit" value="<%= actionBtnLabel %>"/>
+                    <a class="form-button-cancel" href="/players"><%= cancelBtnLabel %></a>
+                </p>
+            <% } %>
+        </div>
+        <input type="hidden" name="_id" value="<%= isNotCreate ? player._id : '' %>">
+    </form>
+    <% if (isNotCreate) { %>
+        <h2>Player participations</h2>
+        <table class="table-list">
+            <thead>
+            <tr>
+                <th>Tournament</th>
+                <th>Final position</th>
+                <th>Rank points gained</th>
+                <th>Rank points overall</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for (let p of player.participations) { %>
+                <tr>
+                    <td>
+                        <a href="/tournaments/details/<%= p.tournament._id %>">
+                            <%= p.tournament.name %>
+                        </a>
+                    </td>
+                    <td class="centered-cell"><%= p.finalPosition %></td>
+                    <td class="number-cell"><%= p.rankPointsGained %></td>
+                    <td class="number-cell"><%= p.rankPointsOverall %></td>
+                </tr>
+            <% } %>
+            </tbody>
+        </table>
+    <% } %>
+</main>
+<%- include('../../fragments/footer') %>

@@ -1,0 +1,41 @@
+<%- include('../../fragments/header') %>
+<main>
+    <h2>Players</h2>
+    <table class="table-list">
+        <thead>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>License number</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for (let player of players) { %>
+            <tr>
+                <td>
+                    <%= player.firstName %>
+                </td>
+                <td>
+                    <%= player.lastName %>
+                </td>
+                <td>
+                    <%= player.licenseNumber %>
+                </td>
+                <td>
+                    <ul class="list-actions">
+                        <li><a class="list-actions-button-details"
+                               href="/players/details/<%= player._id %>">Details</a></li>
+                        <li><a class="list-actions-button-edit"
+                               href="/players/edit/<%= player._id %>">Edit</a></li>
+                        <li><a class="list-actions-button-delete"
+                               href="/players/delete/<%= player._id %>">Delete</a></li>
+                    </ul>
+                </td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+    <p><a class="button-add" href="/players/add">Add new player</a></p>
+</main>
+<%- include('../../fragments/footer') %>

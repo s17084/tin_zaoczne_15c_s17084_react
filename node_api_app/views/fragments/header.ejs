@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <title>Squash Tournaments</title>
+</head>
+
+<body>
+<header>
+    <img
+            src="/images/logo.png"
+            alt="Squash Tournament Management System logo"
+    />
+    <h1>Squash Tournament Management System</h1>
+    <img
+            src="/images/logo.png"
+            alt="Squash Tournament Management System logo"
+    />
+</header>
+<% if(!loggedUser) { %>
+    <div id="login" class="login-container">
+        <form class="login-form" method="post" action="/login" novalidate>
+            <div>
+                <label class="login-form-label" for="loginEmail">Email:</label>
+                <input class="login-form-input" type="email" id="loginEmail" name="email"/>
+
+                <label class="login-form-label" for="loginPassword">Password:</label>
+                <input class="login-form-input" type="password" id="loginPassword" name="password"/>
+
+                <input class="login-form-button" type="submit" value="Login"/>
+
+                <input class="register-form-button" type="submit" value="Register"/>
+            </div>
+            <span class="login-errors" id="loginErrors"><%= loginError ? loginError : '' %></span>
+        </form>
+    </div>
+<% } else { %>
+    <div id="login" class="login-container">
+        <span class="logged-in-label">
+            Logged in:
+        </span>
+        <span class="logged-in-value">
+            <%= loggedUser.firstName + " " +
+            loggedUser.lastName %>
+        </span>
+        <a class="logout-button" href="/logout">Logout</a>
+    </div>
+<% } %>
+<nav>
+    <ul>
+        <li>
+            <a href="/" class="<%= navLocation === 'main' ? 'active' : '' %>"
+            >Main page</a
+            >
+        </li>
+        <li>
+            <a
+                    href="/players"
+                    class="<%= navLocation === 'player' ? 'active' : '' %>"
+            >Players</a
+            >
+        </li>
+        <li>
+            <a
+                    href="/tournaments"
+                    class="<%= navLocation === 'tournament' ? 'active' : '' %>"
+            >Tournaments</a
+            >
+        </li>
+        <li>
+            <a
+                    href="/participations"
+                    class="<%= navLocation === 'participation' ? 'active' : '' %>"
+            >Participations</a
+            >
+        </li>
+    </ul>
+</nav>
+</body>
+</html>

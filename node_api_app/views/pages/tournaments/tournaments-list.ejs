@@ -1,0 +1,43 @@
+<%- include('../../fragments/header') %>
+<main>
+    <h2>Tournaments</h2>
+    <table class="table-list">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Rank</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for (let t of tournaments) { %>
+            <tr>
+                <td>
+                    <%= t.name %>
+                </td>
+                <td>
+                    <%= t.date.toISOString().split("T")[0] %>
+                </td>
+                <td>
+                    <%= t.rank %>
+                </td>
+                <td>
+                    <ul class="list-actions">
+                        <li><a class="list-actions-button-details"
+                               href="/tournaments/details/<%= t._id %>">Details</a></li>
+                        <li><a class="list-actions-button-edit"
+                               href="/tournaments/edit/<%= t._id %>">Edit</a></li>
+                        <li><a class="list-actions-button-delete"
+                               href="/tournaments/delete/<%= t._id %>">Delete</a></li>
+                    </ul>
+                </td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+    <p>
+        <a class="button-add" href="/tournaments/add">Add new tournament</a>
+    </p>
+</main>
+<%- include('../../fragments/footer') %>

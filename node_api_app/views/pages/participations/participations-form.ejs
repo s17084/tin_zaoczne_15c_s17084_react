@@ -1,0 +1,125 @@
+<%- include('../../fragments/header') %>
+
+<% const isEditable = formMode === 'create' || formMode === 'edit' %>
+<% const isNotCreate = formMode !== 'create' %>
+<% const disabled = !isEditable ? 'disabled' : '' %>
+
+<script type="application/javascript" src="/js/validationCommon.js"></script>
+<script type="application/javascript" src="/js/validationParticipationForm.js"></script>
+
+<main>
+    <h2><%= pageTitle %></h2>
+    <form class="form <%= isEditable ? 'form-edit' : 'form-display' %>"
+          action="<%= formAction %>"
+          novalidate
+          method="post">
+        <!--onsubmit="return validateForm();"-->
+
+        <label for="player">
+            Player:<%- helper.ariaRequired(isEditable) %>
+        </label>
+        <select
+                name="player"
+                id="player"
+                oninput="resetError(this)"
+                class="<%= helper.errorClass('player', validationErrors) %>"
+                <%= disabled %>>
+            <option disabled value <%= helper.disabledOptionSelected(body, formMode, 'player') %>>
+                --
+            </option>
+            <% for (let p of players) { %>
+                <option
+                        <%= helper.optionSelectedById(body, participation.player, 'player', p._id,
+                                formMode) %>
+                        value="<%= p._id %>"
+                ><%= p.firstName + ' ' + p.lastName %>
+                </option>
+            <% } %>
+        </select>
+        <%- helper.errorSpan(isEditable, 'player', validationErrors) %>
+
+        <label for="tournament">
+            Tournament:<%- helper.ariaRequired(isEditable) %>
+        </label>
+        <select
+                class="<%= helper.errorClass('tournament', validationErrors) %>"
+                name="tournament"
+                id="tournament"
+                oninput="resetError(this)"
+                <%= disabled %>>
+            <option disabled value
+                    <%= helper.disabledOptionSelected(body, formMode, 'tournament') %>
+            >--
+            </option>
+            <% for (let t of tournaments) { %>
+                <option
+                        <%= helper.optionSelectedById(body, participation.tournament, 'tournament',
+                                t._id, formMode) %>
+                        value="<%= t._id %>"
+                ><%= t.name %>
+                </option>
+            <% } %>
+        </select>
+        <%- helper.errorSpan(isEditable, 'tournament', validationErrors) %>
+
+        <label for="finalPosition">Final position:</label>
+        <input
+                type="number"
+                id="finalPosition"
+                name="finalPosition"
+                placeholder="Final player position"
+                oninput="resetError(this)"
+                value="<%= helper.inputValue(body, participation, 'finalPosition') %>"
+                <%= disabled %>/>
+        <%- helper.errorSpan(isEditable, 'finalPosition', validationErrors) %>
+
+        <label for="rankPointsGained">Rank points gained:</label>
+        <input
+                type="number"
+                name="rankPointsGained"
+                id="rankPointsGained"
+                placeholder="Number of points"
+                value="<%= helper.inputValue(body, participation, 'rankPointsGained') %>"
+                <%= disabled %>/>
+        <%- helper.errorSpan(isEditable, 'rankPointsGained', validationErrors) %>
+
+        <label for="rankPointsOverall">Rank points overall:</label>
+        <input
+                type="number"
+                name="rankPointsOverall"
+                id="rankPointsOverall"
+                placeholder="Number of points"
+                value="<%= helper.inputValue(body, participation, 'rankPointsOverall') %>"
+                <%= disabled %>/>
+        <%- helper.errorSpan(isEditable, 'rankPointsOverall', validationErrors) %>
+
+        <div class="<%= !isEditable
+                ? 'form-buttons'
+                : 'form-buttons-edit' %>">
+            <% if (!isEditable) { %>
+                <p>
+                    <a class="form-button-edit"
+                       href="<%= formAction %>">
+                        <%= actionBtnLabel %>
+                    </a>
+                    <a class="form-button-goback"
+                       href="/participations">
+                        <%= cancelBtnLabel %>
+                    </a>
+                </p>
+            <% } else { %>
+                <p id="errorsSummary" class="errors-text"></p>
+                <p>
+                    <input class="form-button-submit"
+                           type="submit"
+                           value="<%= actionBtnLabel %>"/>
+                    <a class="form-button-cancel"
+                       href="/participations">
+                        <%= cancelBtnLabel %>
+                    </a>
+                </p>
+            <% } %>
+        </div>
+    </form>
+</main>
+<%- include('../../fragments/footer') %>

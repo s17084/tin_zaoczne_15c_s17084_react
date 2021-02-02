@@ -1,0 +1,28 @@
+{
+  "appName": "Squash Tournament Management System",
+  "pageTitles": {
+    "mainPage": "Main page",
+    "players": "Players",
+    "playerDetails": "Player details",
+    "tournaments": "Tournaments",
+    "participations": "Participations"
+  },
+  "buttons": {
+    "details": "Details",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "tables": {
+    "playersTable": {
+      "firstname": "Firstname",
+      "lastname": "Lastname",
+      "licenseNumber": "License number",
+      "actions": "Actions",
+      "addNewPlayer": "Add new player"
+    }
+  },
+  "messages": {
+    "dataLoading": "Loading data...",
+    "noData": "No data to display"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "appName": "System Zarządania Turniejami Squash'a",
+  "pageTitles": {
+    "mainPage": "Strona główna",
+    "players": "Zawodnicy",
+    "playerDetails": "Szczegóły zawodnika",
+    "tournaments": "Turnieje",
+    "participations": "Zapisy"
+  },
+  "buttons": {
+    "details": "Szczegóły",
+    "edit": "Edytuj",
+    "delete": "Usuń"
+  },
+  "tables":{
+    "playersTable": {
+      "firstname": "Imię",
+      "lastname": "Nazwisko",
+      "licenseNumber": "Numer licencji",
+      "actions": "Akcje",
+      "addNewPlayer": "Dodaj zawodnika"
+    }
+  },
+  "messages": {
+    "dataLoading": "Ładowanie danych...",
+    "noData": "Brak danych do wyświetlenia"
+  }
+}
