@@ -16,7 +16,7 @@ const Tournament = sequelize.define('Tournament', {
     unique: true,
     validate: {
       notEmpty: {
-        msg: 'Field is required'
+        msg: 'notEmpty'
       }
     }
   },
@@ -25,11 +25,11 @@ const Tournament = sequelize.define('Tournament', {
     allowNull: false,
     validate: {
       notEmpty: {
-        msg: 'Field is required'
+        msg: 'notEmpty'
       },
       isAfter: {
         args: [new Date().toISOString().split("T")[0]],
-        msg: 'Must be future date'
+        msg: 'futureDate'
       }
     }
   },
@@ -38,13 +38,13 @@ const Tournament = sequelize.define('Tournament', {
     allowNull: false,
     validate: {
       notEmpty: {
-        msg: 'Field is required'
+        msg: 'notEmpty'
       },
       isMinimumPrize(value){
         if(this.rank !== ''){
           const minPrize = AVAILABLE_RANKS[this.rank]
           if(value < minPrize) {
-            throw new Error('Must be at least ' + minPrize + ' PLN')
+            throw new Error('minPrize')
           }
         }
       }
@@ -55,14 +55,14 @@ const Tournament = sequelize.define('Tournament', {
     allowNull: false,
     validate: {
       notNull: {
-        msg: 'Must be valid rank: ' + Object.keys(AVAILABLE_RANKS)
+        msg: 'notEmpty'
       },
       notEmpty: {
-        msg: 'Must be valid rank: ' + Object.keys(AVAILABLE_RANKS)
+        msg: 'notEmpty'
       },
       isCorrectRank(value) {
         if(!Object.keys(AVAILABLE_RANKS).includes(value)){
-          throw new Error('Must be valid rank: ' + Object.keys(AVAILABLE_RANKS))
+          throw new Error('validRank')
         }
       }
     }

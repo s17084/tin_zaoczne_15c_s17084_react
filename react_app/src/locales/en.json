@@ -36,7 +36,9 @@
     "goBack": "Go back",
     "saveChanges": "Save changes",
     "editTournament": "Edit tournament",
-    "addTournament": "Add tournament"
+    "addTournament": "Add tournament",
+    "addParticipation": "Add participation",
+    "editParticipation": "Edit participation"
   },
   "tables": {
     "playersTable": {
@@ -83,7 +85,7 @@
       "nameLabel": "Name:",
       "dateLabel": "Date:",
       "prizePoolLabel": "Prize pool:",
-      "rankLabel": "Rank",
+      "rankLabel": "Rank:",
       "tournamentParticipations": {
         "player": "Player",
         "finalPosition": "Final position",
@@ -91,21 +93,34 @@
         "pointsOverall": "Rank points overall"
       }
     },
+    "participation": {
+      "playerLabel": "Player:",
+      "tournamentLabel": "Tournament:",
+      "finalPositionLabel": "Final position:",
+      "pointsGainedLabel": "Rank points gained:",
+      "pointsOverallLabel": "Rank points overall:"
+    },
     "placeholders": {
       "2_60_chars": "2-60 characters",
       "5_60_chars": "5-60 characters",
       "email": "e.g. name@domain.com",
-      "licenseNumber": "6 digits number"
+      "licenseNumber": "6 digits number",
+      "finalPosition": "Final player position",
+      "numberOfPoints": "Number of points"
     }
   },
   "validationErrors": {
     "invalidForm": "Form has errors",
     "notEmpty": "Field is required",
+    "notNull": "Field is required",
     "mustBe_16_YearsOld": "Must be at least 16 years old",
     "6_Digits": "Must be 6 digits number",
     "validEmail": "Must be valid email address",
     "2_60_chars": "Must contain 2-60 characters",
     "5_60_chars": "Must contain 5-60 characters",
-    "unique": "Must be unique value"
+    "unique": "Must be unique value",
+    "futureDate": "Must be future date",
+    "minPrize": "Must be at least {minPrize} PLN",
+    "validRank": "Must be valid category"
   }
 }

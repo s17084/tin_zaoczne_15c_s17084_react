@@ -36,7 +36,9 @@
     "goBack": "Powrót",
     "saveChanges": "Zapisz zmiany",
     "editTournament": "Edytuj turniej",
-    "addTournament": "Dodaj turniej"
+    "addTournament": "Dodaj turniej",
+    "addParticipation": "Dodaj uczestnictwo",
+    "editParticipation": "Edytuj uczestnictwo"
   },
   "tables": {
     "playersTable": {
@@ -83,7 +85,7 @@
       "nameLabel": "Nazwa:",
       "dateLabel": "Data:",
       "prizePoolLabel": "Suma nagród:",
-      "rankLabel": "Ranga",
+      "rankLabel": "Ranga:",
       "tournamentParticipations": {
         "player": "Zawodnik",
         "finalPosition": "Miejsce",
@@ -91,21 +93,34 @@
         "pointsOverall": "Punkty w rankingu"
       }
     },
+    "participation": {
+      "playerLabel": "Zawodnik:",
+      "tournamentLabel": "Turniej:",
+      "finalPositionLabel": "Miejsce:",
+      "pointsGainedLabel": "Punkty uzyskane:",
+      "pointsOverallLabel": "Punkty w rankingu:"
+    },
     "placeholders": {
       "2_60_chars": "2-60 znaków",
       "5_60_chars": "5-60 znaków",
       "email": "np. nazwa@domena.com",
-      "licenseNumber": "6-cyfrowy numer"
+      "licenseNumber": "6-cyfrowy numer",
+      "finalPosition": "Zajęte miejsce",
+      "numberOfPoints": "Ilość punktów"
     }
   },
   "validationErrors": {
     "invalidForm": "Formularz zawiera błędy",
     "notEmpty": "Pole jest wymagane",
+    "notNull": "Pole jest wymagane",
     "mustBe_16_YearsOld": "Zawodnik musi mieć co najmniej 16 lat",
     "6_Digits": "Musi składać się z 6 cyfr",
     "validEmail": "Musi być poprawnym adresem email",
     "2_60_chars": "Musi zawierać 2-60 znaków",
     "5_60_chars": "Musi zawierać 5-60 znaków",
-    "unique": "Musi być wartością unikalną"
+    "unique": "Musi być wartością unikalną",
+    "futureDate": "Musi być przyszłą datą",
+    "minPrize": "Musi wynosić co najmniej {minPrize} PLN",
+    "validRank": "Musi być poprawną kategorią"
   }
 }

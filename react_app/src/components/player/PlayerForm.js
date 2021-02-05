@@ -10,6 +10,7 @@ import FormButtonsDetails from "../other/FormButtonsDetails";
 
 import {getPlayerById, addPlayer, updatePlayer} from "../../api/api";
 import PlayerParticipations from "./PlayerParticipations";
+import {useRole} from "../../hooks/useRole";
 
 const playerFormSchema = {
   _id: -1,
@@ -24,6 +25,7 @@ const playerFormSchema = {
 const PlayerForm = (props) => {
   const {t} = useTranslation();
   const {playerId} = useParams();
+  const {isAdmin, loggedUserId} = useRole();
 
   const [formValues, setFormValues] = useState(playerFormSchema);
   const [formErrors, setFormErrors] = useState([]);
@@ -51,10 +53,8 @@ const PlayerForm = (props) => {
     .then((data) => {
       response = data;
       if (response.status === 201) {
-        console.log('PLAYER_CREATED');
         return data.json();
       } else if (response.status === 500) {
-        console.log('PLAYER_CREATE_ERROR_500');
         return data.json();
       }
     })
@@ -73,10 +73,8 @@ const PlayerForm = (props) => {
     .then((data) => {
       response = data;
       if (response.status === 200) {
-        console.log('PLAYER_CREATED');
         return data.json();
       } else if (response.status === 500) {
-        console.log('PLAYER_CREATE_ERROR_500');
         return data.json();
       }
     })
@@ -108,9 +106,6 @@ const PlayerForm = (props) => {
       setLoaded(true);
     }
   }, [playerId, isCreate]);
-
-  console.log({error: error})
-  console.log({formErrors: formErrors})
 
   return (
       <ContentContainer contentTitle={t('pageTitles.playerDetails')}>
@@ -211,6 +206,7 @@ const PlayerForm = (props) => {
                         editPath={"/players/edit/" + playerId}
                         editLabel={t('buttons.editPlayer')}
                         elementId={formValues._id}
+                        canEdit={isAdmin || loggedUserId === formValues._id}
                     />
                 )}
               < /div>

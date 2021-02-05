@@ -1,18 +1,16 @@
 import React from 'react';
 import {Link, useHistory} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
-import {useRole} from "../../hooks/useRole";
 
 const FormButtonsDetails = (props) => {
   const {t} = useTranslation();
-  const {isAdmin, isPlayer, loggedUserId} = useRole();
-  const {editPath, editLabel, elementId} = props;
+  const {editPath, editLabel, elementId, canEdit} = props;
   const history = useHistory();
 
   return (
       <>
         <p>
-          {isAdmin || loggedUserId === elementId ? (
+          {canEdit ? (
               <Link className="form-button-edit"
                     to={{
                       pathname: editPath,

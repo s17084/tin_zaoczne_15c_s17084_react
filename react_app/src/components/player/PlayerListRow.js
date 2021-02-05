@@ -20,7 +20,6 @@ const PlayerListRow = (props) => {
       }
     })
     .then((data) => {
-      console.log(data);
       window.location.reload(false);
     })
   }

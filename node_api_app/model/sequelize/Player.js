@@ -14,11 +14,11 @@ const Player = sequelize.define('Player', {
     allowNull: false,
     validate: {
       notEmpty: {
-        msg: "notEmpty"
+        msg: 'notEmpty'
       },
       len: {
         args: [2, 60],
-        msg: "2_60_chars"
+        msg: '2_60_chars'
       },
     }
   },
@@ -27,11 +27,11 @@ const Player = sequelize.define('Player', {
     allowNull: false,
     validate: {
       notEmpty: {
-        msg: "notEmpty"
+        msg: 'notEmpty'
       },
       len: {
         args: [2, 60],
-        msg: "2_60_chars"
+        msg: '2_60_chars'
       },
     }
   },
@@ -55,11 +55,11 @@ const Player = sequelize.define('Player', {
     unique: true,
     validate: {
       notEmpty: {
-        msg: "notEmpty"
+        msg: 'notEmpty'
       },
       is: {
         args: [/\d{6}/],
-        msg: "6_Digits"
+        msg: '6_Digits'
       }
     }
   },
@@ -69,7 +69,7 @@ const Player = sequelize.define('Player', {
     validate: {
       isBefore: {
         args: [new Date(new Date().setUTCFullYear(
-            new Date().getUTCFullYear() - 16)).toISOString().split("T")[0]],
+            new Date().getUTCFullYear() - 16)).toISOString().split('T')[0]],
         msg: 'mustBe_16_YearsOld'
       }
     }
@@ -79,7 +79,7 @@ const Player = sequelize.define('Player', {
     allowNull: false,
     validate: {
       notEmpty: {
-        msg: "notEmpty"
+        msg: 'notEmpty'
       }
     }
   },
@@ -88,7 +88,7 @@ const Player = sequelize.define('Player', {
     allowNull: false,
     validate: {
       notEmpty: {
-        msg: "notEmpty"
+        msg: 'notEmpty'
       }
     }
   }

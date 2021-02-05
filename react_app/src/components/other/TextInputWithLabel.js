@@ -7,7 +7,7 @@ const TextInputWithLabel = (props) => {
     id,
     labelText,
     type,
-      step,
+    step,
     labelClass,
     inputClass,
     formValues,
@@ -30,12 +30,9 @@ const TextInputWithLabel = (props) => {
   useEffect(() => {
     if (formErrors) {
       const formError = formErrors.find(e => e.path.includes(id))?.message
-      console.log(formError)
       setError(formError)
     }
   }, [formErrors])
-
-  console.log({error: error})
 
   return (
       <>
@@ -56,9 +53,9 @@ const TextInputWithLabel = (props) => {
             <>
               <span/>
               <span
-                  id={'error' + id.slice(0, 1).toUpperCase()
-                  + id.slice(1)}
-                  className="errors-text">{error ? t('validationErrors.' + error) : ""}
+                  id={'error' + id.slice(0, 1).toUpperCase() + id.slice(1)}
+                  className="errors-text">
+                {error ? t('validationErrors.' + error) : ""}
               </span>
             </>
         ) : null}

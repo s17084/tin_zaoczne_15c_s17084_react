@@ -31,7 +31,7 @@ export const language = () => {
 export const handleLanguageChange = (language) => {
   i18n.changeLanguage(language, (err, t) => {
     if (err) {
-      return console.log('something went wrong loading', err);
+      return err;
     }
   });
 }

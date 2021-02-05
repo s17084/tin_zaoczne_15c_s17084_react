@@ -6,8 +6,6 @@ const PlayerParticipations = (props) => {
   const {t} = useTranslation();
   const {participations} = props;
 
-  console.log(participations)
-
   return (
       <>
         <h2>{t('pageTitles.playerParticipations')}</h2>

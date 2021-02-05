@@ -9,10 +9,11 @@ import {useHistory, useParams} from "react-router-dom";
 import TournamentParticipations from "./TournamentParticipations";
 import SelectInputWithLabel from "../other/SelectInputWithLabel";
 import {
-  // addTournament,
-  // updateTournament,
+  addTournament,
+  updateTournament,
   getTournamentById
 } from "../../api/api";
+import {useRole} from "../../hooks/useRole";
 
 const tournamentFormSchema = {
   _id: -1,
@@ -26,6 +27,7 @@ const tournamentFormSchema = {
 const TournamentForm = (props) => {
   const {t} = useTranslation();
   const {tournamentId} = useParams();
+  const {isAdmin, loggedUserId} = useRole();
 
   const [formValues, setFormValues] = useState(tournamentFormSchema);
   const [formErrors, setFormErrors] = useState([]);
@@ -49,50 +51,45 @@ const TournamentForm = (props) => {
 
   const handleCreate = () => {
     let response;
-    // addTournament(formValues)
-    // .then((data) => {
-    //   response = data;
-    //   if (response.status === 201) {
-    //     console.log('PLAYER_CREATED');
-    //     return data.json();
-    //   } else if (response.status === 500) {
-    //     console.log('PLAYER_CREATE_ERROR_500');
-    //     return data.json();
-    //   }
-    // })
-    // .then((data) => {
-    //   if (response.status === 500) {
-    //     setFormErrors(data);
-    //   } else if (response.status === 201) {
-    //     history.push("/players")
-    //   }
-    // })
+    addTournament(formValues)
+    .then((data) => {
+      response = data;
+      console.log(data)
+      if (response.status === 201 || response.status === 500) {
+        return data.json();
+      }
+    })
+    .then((data) => {
+      console.log(data)
+      if (response.status === 500) {
+        setFormErrors(data);
+      } else if (response.status === 201) {
+        history.push("/tournaments")
+      }
+    })
   }
 
   const handleUpdate = () => {
     let response;
-    // updateTournament(formValues)
-    // .then((data) => {
-    //   response = data;
-    //   if (response.status === 200) {
-    //     console.log('PLAYER_CREATED');
-    //     return data.json();
-    //   } else if (response.status === 500) {
-    //     console.log('PLAYER_CREATE_ERROR_500');
-    //     return data.json();
-    //   }
-    // })
-    // .then((data) => {
-    //   if (response.status === 500) {
-    //     setFormErrors(data);
-    //   } else if (response.status === 200) {
-    //     history.push("/players")
-    //   }
-    // })
+    updateTournament(formValues)
+    .then((data) => {
+      response = data;
+      if (response.status === 200) {
+        return data.json();
+      } else if (response.status === 500) {
+        return data.json();
+      }
+    })
+    .then((data) => {
+      if (response.status === 500) {
+        setFormErrors(data);
+      } else if (response.status === 200) {
+        history.push("/tournaments")
+      }
+    })
   }
 
   const customSetFormValues = (tournament) => {
-    console.log(tournament)
     setFormValues({
       _id: tournament._id,
       name: tournament.name,
@@ -151,8 +148,23 @@ const TournamentForm = (props) => {
                   formErrors={formErrors}
               />
               <SelectInputWithLabel
-                  id={"RANK"}
-                  options={["A", "B+", "C"]}
+                  id="rank"
+                  options={[
+                    {
+                      key: "A",
+                      value: "A",
+                      selected: formValues.rank === "A"
+                    }, {
+                      key: "B+",
+                      value: "B+",
+                      selected: formValues.rank === "B+"
+                    },
+                    {
+                      key: "C",
+                      value: "C",
+                      selected: formValues.rank === "C"
+                    }
+                  ]}
                   labelText={t('forms.tournament.rankLabel')}
                   labelClass=""
                   inputClass=""
@@ -165,7 +177,7 @@ const TournamentForm = (props) => {
               />
               <TextInputWithLabel
                   id="prizePool"
-                  labelText={t('forms.tournament.dateLabel')}
+                  labelText={t('forms.tournament.prizePoolLabel')}
                   type="number"
                   step="0.01"
                   labelClass=""
@@ -181,7 +193,7 @@ const TournamentForm = (props) => {
                   className={isEditable ? 'form-buttons-edit' : 'form-buttons'}>
                 {isCreate ? (
                     <FormButtonsCreate
-                        createLabel={t('buttons.addPlayer')}
+                        createLabel={t('buttons.addTournament')}
                         formValid={formErrors.length === 0}
                         cancelUrl={"/tournaments"}
                     />
@@ -195,6 +207,7 @@ const TournamentForm = (props) => {
                         editPath={"/tournaments/edit/" + tournamentId}
                         editLabel={t('buttons.editTournament')}
                         elementId={formValues._id}
+                        canEdit={isAdmin || loggedUserId === formValues._id}
                     />
                 )}
               < /div>

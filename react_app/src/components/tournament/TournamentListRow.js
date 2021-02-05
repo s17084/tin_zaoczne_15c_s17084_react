@@ -20,7 +20,6 @@ const TournamentListRow = (props) => {
       }
     })
     .then((data) => {
-      console.log(data);
       window.location.reload(false);
     })
   }
@@ -38,7 +37,7 @@ const TournamentListRow = (props) => {
                 {t('buttons.details')}
               </Link>
             </li>
-            {isAdmin || (isPlayer && tournament._id === loggedUserId) ? (
+            {isAdmin ? (
                 <li>
                   <Link className="list-actions-button-edit"
                         to={'tournaments/edit/' + tournament._id}>

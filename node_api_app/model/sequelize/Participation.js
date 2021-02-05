@@ -25,10 +25,9 @@ const Participation = sequelize.define('Participation', {
     allowNull: false,
     validate: {
       notNull: {
-        msg: 'Field is required'
+        msg: 'notEmpty'
       },
       uniqueParticipation(value, next) {
-
         Participation.findAll({
           where: {
             playerId: value ?? -1,
@@ -37,7 +36,7 @@ const Participation = sequelize.define('Participation', {
         })
         .then(result => {
           if (result.length > 0) {
-            return next('Player already assigned');
+            return next('unique');
           }
           return next();
         })
@@ -52,7 +51,7 @@ const Participation = sequelize.define('Participation', {
     allowNull: false,
     validate: {
       notNull: {
-        msg: 'Field is required'
+        msg: 'notEmpty'
       },
     }
   }

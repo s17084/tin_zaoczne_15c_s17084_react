@@ -26,6 +26,11 @@ export const getTournamentById = (setLoaded, setTournament, setError, tournament
   getData(url, setLoaded, setTournament, setError);
 }
 
+export const getParticipationById = (setLoaded, setParticipation, setError, participationId) => {
+  const url = baseUrl + '/participations/' + participationId;
+  getData(url, setLoaded, setParticipation, setError);
+}
+
 export const addPlayer = (playerData) => {
   const birthDate = isNaN(Date.parse(playerData.birthDate)) ? null : new Date(playerData.birthDate).toISOString()
   const reqBody = JSON.stringify({
@@ -39,6 +44,31 @@ export const addPlayer = (playerData) => {
   return addItem(url, reqBody);
 }
 
+export const addTournament = (tournamentData) => {
+  const date = isNaN(Date.parse(tournamentData.date)) ? null : new Date(tournamentData.date).toISOString()
+  const reqBody = JSON.stringify({
+    name: tournamentData.name,
+    date: date,
+    rank: tournamentData.rank,
+    prizePool: tournamentData.prizePool,
+  })
+  const url = baseUrl + '/tournaments/';
+  return addItem(url, reqBody);
+}
+
+export const addParticipation = (participationData) => {
+  const reqBody = JSON.stringify({
+    _id: participationData._id,
+    playerId: participationData.playerId,
+    participationId: participationData.participationId,
+    finalPosition: participationData.finalPosition,
+    rankPointsGained: participationData.rankPointsGained,
+    rankPointsOverall: participationData.rankPointsOverall
+  })
+  const url = baseUrl + '/participations/';
+  return addItem(url, reqBody);
+}
+
 export const updatePlayer = (playerData) => {
   const birthDate = isNaN(Date.parse(playerData.birthDate)) ? null : new Date(playerData.birthDate).toISOString()
   const reqBody = JSON.stringify({
@@ -49,6 +79,31 @@ export const updatePlayer = (playerData) => {
     birthDate: birthDate
   })
   const url = baseUrl + '/players/' + playerData._id;
+  return updateItem(url, reqBody);
+}
+
+export const updateTournament = (tournamentData) => {
+  const date = isNaN(Date.parse(tournamentData.date)) ? null : new Date(tournamentData.date).toISOString()
+  const reqBody = JSON.stringify({
+    name: tournamentData.name,
+    date: date,
+    rank: tournamentData.rank,
+    prizePool: tournamentData.prizePool,
+  })
+  const url = baseUrl + '/tournaments/' + tournamentData._id;
+  return updateItem(url, reqBody);
+}
+
+export const updateParticipation = (participationData) => {
+  const reqBody = JSON.stringify({
+    _id: participationData._id,
+    playerId: participationData.playerId,
+    participationId: participationData.participationId,
+    finalPosition: participationData.finalPosition,
+    rankPointsGained: participationData.rankPointsGained,
+    rankPointsOverall: participationData.rankPointsOverall
+  })
+  const url = baseUrl + '/participations/' + participationData._id;
   return updateItem(url, reqBody);
 }
 
@@ -89,7 +144,6 @@ const updateItem = (url, reqBody) => {
     body: reqBody
   }
   return fetch(url, options);
-
 }
 
 const deleteItem = (url) => {
@@ -111,7 +165,6 @@ const getData = (url, setLoaded, setData, setError) => {
 
   fetch(url, options)
   .then(res => {
-    console.log(res)
     if (res.status === 200) {
       return res.json();
     } else{
@@ -124,20 +177,15 @@ const getData = (url, setLoaded, setData, setError) => {
     }
   })
   .then((data) => {
-        console.log({data: data})
         setLoaded(true);
         if (data?.error) {
-          console.log('ERROR')
           setError(data.error)
         } else {
-          console.log('NO ERROR')
-          console.log(data)
           setData(data)
           setError(null)
         }
       },
       (error) => {
-        console.log({error: error})
         setLoaded(true);
         setError(error)
       }

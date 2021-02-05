@@ -9,12 +9,12 @@ const SelectInputWithLabel = (props) => {
     labelText,
     labelClass,
     inputClass,
-    formValues,
     setValue,
     disabled,
     errorSpan,
     formErrors,
-    isCreate
+    isCreate,
+    errorParams
   } = props;
 
   const [error, setError] = useState("");
@@ -23,18 +23,18 @@ const SelectInputWithLabel = (props) => {
     setError("");
     const obj = {};
     obj[id] = event.target.value;
+    console.log(event.target.value)
     setValue(obj);
   }
 
   useEffect(() => {
     if (formErrors) {
       const formError = formErrors.find(e => e.path.includes(id))?.message
-      console.log(formError)
       setError(formError)
     }
   }, [])
 
-  console.log({error: error})
+  console.log({options: options})
 
   return (
       <>
@@ -43,7 +43,7 @@ const SelectInputWithLabel = (props) => {
         <select
             name={id}
             id={id}
-            onInput={() => setError("")}
+            onInput={handleChange}
             className={(inputClass + (error ? ' error-input' : null)).trim()}
             disabled={disabled}
         >
@@ -51,11 +51,12 @@ const SelectInputWithLabel = (props) => {
               disabled
               value
               selected={isCreate}
+              key={-1}
           >--
           </option>
           {options.map(option =>
-              <option selected={formValues[id] === option}>
-                {option}
+              <option selected={option.selected} value={option.key}>
+                {option.value}
               </option>
           )}
         </select>
@@ -65,8 +66,9 @@ const SelectInputWithLabel = (props) => {
               <span
                   id={'error' + id.slice(0, 1).toUpperCase()
                   + id.slice(1)}
-                  className="errors-text">{error ? t(
-                  'validationErrors.' + error) : ""}
+                  className="errors-text">{error ?
+                  t('validationErrors.' + error)
+                  : ""}
               </span>
             </>
         ) : null}

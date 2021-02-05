@@ -60,11 +60,6 @@ function optionSelected(body, formObj, inputId, expValue, formMode) {
 }
 
 function optionSelectedById(body, formObj, inputId, expValue, formMode) {
-  console.log(Object.keys(body).includes(inputId))
-  console.log(body[inputId] === expValue)
-  console.log(body[inputId])
-  console.log(expValue)
-
   if (Object.keys(body).includes(inputId)) {
     if (body[inputId] == expValue) {
       return 'selected'

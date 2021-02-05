@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken')
 export const useRole = () => {
   const token = localStorage.getItem("token");
   const decodedToken = jwt.decode(token)
-  console.log(decodedToken)
   let role = '';
   let tokenExpired = true;
   let loggedUserId = null;

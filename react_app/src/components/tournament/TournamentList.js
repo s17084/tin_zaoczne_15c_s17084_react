@@ -18,8 +18,6 @@ const TournamentList = () => {
     getTournamentList(setLoaded, setTournamentList, setError);
   }, [])
 
-  console.log(tournamentList)
-
   return (
       <ContentContainer contentTitle={t('pageTitles.tournaments')}>
         {error ? (

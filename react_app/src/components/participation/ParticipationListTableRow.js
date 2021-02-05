@@ -20,7 +20,6 @@ const ParticipationTableRow = (props) => {
       }
     })
     .then((data) => {
-      console.log(data);
       window.location.reload(false);
     })
   }
@@ -34,14 +33,14 @@ const ParticipationTableRow = (props) => {
           <ul className="list-actions">
             <li>
               <Link className="list-actions-button-details"
-                    to={'tournaments/details/' + participation._id}>
+                    to={'participations/details/' + participation._id}>
                 {t('buttons.details')}
               </Link>
             </li>
-            {isAdmin || (isPlayer && participation._id === loggedUserId) ? (
+            {isAdmin ? (
                 <li>
                   <Link className="list-actions-button-edit"
-                        to={'tournaments/edit/' + participation._id}>
+                        to={'participations/edit/' + participation._id}>
                     {t('buttons.edit')}
                   </Link>
                 </li>) : null}

@@ -18,8 +18,6 @@ const ParticipationList = () => {
     getParticipationList(setLoaded, setParticipationList, setError);
   }, [])
 
-  console.log(participationList)
-
   return (
       <ContentContainer contentTitle={t('pageTitles.participations')}>
         {error ? (
@@ -33,7 +31,7 @@ const ParticipationList = () => {
                   <p>
                     <Link className="button-add"
                           to={{
-                            pathname: "/participation/new",
+                            pathname: "/participations/new",
                             state: {isCreate: true, isEditable: true}
                           }}>
                       {t('tables.participationTable.addNewParticipation')}

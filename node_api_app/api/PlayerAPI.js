@@ -1,4 +1,5 @@
 const PlayerRepository = require('../repository/sequelize/PlayerRepository');
+const manageErrors = require('./Commons')
 
 exports.getPlayers = (req, res, next) => {
   PlayerRepository.getPlayers()
@@ -23,17 +24,6 @@ exports.getPlayerById = (req, res, next) => {
     }
   });
 };
-
-manageErrors = (err) => {
-  err.errors.forEach(e => {
-    if(e.type === 'notNull Violation'){
-      e.message = 'notNull'
-    }
-    if (e.type === 'unique violation') {
-      e.message = "unique";
-    }
-  });
-}
 
 exports.createPlayer = (req, res, next) => {
   console.log('CREATING_PLAYER')

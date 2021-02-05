@@ -18,8 +18,6 @@ const PlayerList = (isLogged) => {
     getPlayersList(setLoaded, setPlayerList, setError);
   }, [isLogged])
 
-  console.log({error:error})
-
   return (
       <ContentContainer contentTitle={t('pageTitles.players')}>
         {error ? (

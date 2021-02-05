@@ -1,4 +1,5 @@
 const ParticipationRepository = require('../repository/sequelize/ParticipationRepository');
+const manageErrors = require('./Commons')
 
 exports.getParticipations = (req, res, next) => {
   ParticipationRepository.getParticipations()
@@ -30,10 +31,8 @@ exports.createParticipation = (req, res, next) => {
     res.status(201).json(newObj);
   })
   .catch(err => {
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
-    next(err);
+    manageErrors(err)
+    res.status(500).json(err.errors)
   });
 };
 
@@ -44,10 +43,8 @@ exports.updateParticipation = (req, res, next) => {
     res.status(200).json({message: 'Participation updated!', participation: result});
   })
   .catch(err => {
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
-    next(err);
+    manageErrors(err)
+    res.status(500).json(err.errors)
   });
 };
 

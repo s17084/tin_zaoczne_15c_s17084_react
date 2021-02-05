@@ -3,8 +3,6 @@ import React from "react";
 const PlayerParticipationsRow = (props) => {
   const {participation} = props;
 
-  console.log(participation)
-
   return (
       <tr>
         <td>

@@ -63,16 +63,11 @@ const LoginForm = (props) => {
               loginProps.handleLogin(data)
             }
           } else if (response.status === 401) {
-            console.log(data.message)
             loginProps.handleLoginError(data.message)
-            console.log(data)
-            console.log(401)
           }
         }
     )
   }
-
-  console.log({loginProps: loginProps})
 
   return (
       <div>

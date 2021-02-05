@@ -1,4 +1,5 @@
 const TournamentRepository = require('../repository/sequelize/TournamentRepository');
+const manageErrors = require('./Commons')
 
 exports.getTournaments = (req, res, next) => {
   TournamentRepository.getTournaments()
@@ -30,10 +31,8 @@ exports.createTournament = (req, res, next) => {
     res.status(201).json(newObj);
   })
   .catch(err => {
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
-    next(err);
+    manageErrors(err)
+    res.status(500).json(err.errors)
   });
 };
 
@@ -44,12 +43,9 @@ exports.updateTournament = (req, res, next) => {
     res.status(200).json({message: 'Tournament updated!', tournament: result});
   })
   .catch(err => {
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
-    next(err);
+    manageErrors(err)
+    res.status(500).json(err.errors)
   });
-
 };
 
 exports.deleteTournament = (req, res, next) => {
