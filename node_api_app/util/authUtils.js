@@ -8,6 +8,5 @@ exports.hashPassword = (passPlain) => {
 }
 
 exports.comparePasswords = (passPlain, passHash) => {
-    const res = bcrypt.compareSync(passPlain, passHash);
-    return res;
+    return bcrypt.compare(passPlain, passHash);
 }

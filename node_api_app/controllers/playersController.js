@@ -13,7 +13,6 @@ manageErrors = (err) => {
 }
 
 exports.addPlayer = (req, res, next) => {
-  console.log(req.body)
   PlayerRepository.createPlayer(req.body)
   .then(newObj => {
     const playerId = newObj._id;

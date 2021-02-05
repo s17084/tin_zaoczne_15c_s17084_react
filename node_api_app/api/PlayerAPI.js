@@ -3,7 +3,6 @@ const PlayerRepository = require('../repository/sequelize/PlayerRepository');
 exports.getPlayers = (req, res, next) => {
   PlayerRepository.getPlayers()
   .then(players => {
-    console.log(players)
     res.status(200).json(players);
   })
   .catch(err => {
@@ -25,16 +24,26 @@ exports.getPlayerById = (req, res, next) => {
   });
 };
 
+manageErrors = (err) => {
+  err.errors.forEach(e => {
+    if(e.type === 'notNull Violation'){
+      e.message = 'notNull'
+    }
+    if (e.type === 'unique violation') {
+      e.message = "unique";
+    }
+  });
+}
+
 exports.createPlayer = (req, res, next) => {
+  console.log('CREATING_PLAYER')
   PlayerRepository.createPlayer(req.body)
   .then(newObj => {
     res.status(201).json(newObj);
   })
   .catch(err => {
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
-    next(err);
+    manageErrors(err)
+    res.status(500).json(err.errors)
   });
 };
 
@@ -45,10 +54,8 @@ exports.updatePlayer = (req, res, next) => {
     res.status(200).json({message: 'Player updated!', player: result});
   })
   .catch(err => {
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
-    next(err);
+    manageErrors(err)
+    res.status(500).json(err.errors)
   });
 };
 

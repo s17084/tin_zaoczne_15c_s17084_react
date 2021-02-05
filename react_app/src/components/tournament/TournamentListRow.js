@@ -1,18 +1,18 @@
 import React from "react";
-import {Link, useHistory} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
-import {deletePlayer} from '../../api/api'
+import {Link} from "react-router-dom";
 import {useRole} from "../../hooks/useRole";
+import {deleteTournament} from "../../api/api";
 
-const PlayerListRow = (props) => {
+const TournamentListRow = (props) => {
   const {t} = useTranslation();
-  const {player} = props;
+  const {tournament} = props;
   const {isAdmin, isPlayer, loggedUserId} = useRole();
 
-  const handleDeletePlayer = () => {
+  const handleDeleteTournament = () => {
     let response;
 
-    deletePlayer(player._id)
+    deleteTournament(tournament._id)
     .then((data) => {
       response = data;
       if (response.status === 200) {
@@ -26,29 +26,29 @@ const PlayerListRow = (props) => {
   }
 
   return (
-      <tr key={player._id}>
-        <td>{player.firstname}</td>
-        <td>{player.lastname}</td>
-        <td>{player.licenseNumber}</td>
+      <tr key={tournament._id}>
+        <td>{tournament.name}</td>
+        <td>{tournament.date.split('T')[0]}</td>
+        <td>{tournament.rank}</td>
         <td>
           <ul className="list-actions">
             <li>
               <Link className="list-actions-button-details"
-                    to={'players/details/' + player._id}>
+                    to={'tournaments/details/' + tournament._id}>
                 {t('buttons.details')}
               </Link>
             </li>
-            {isAdmin || (isPlayer && player._id === loggedUserId) ? (
+            {isAdmin || (isPlayer && tournament._id === loggedUserId) ? (
                 <li>
                   <Link className="list-actions-button-edit"
-                        to={'players/edit/' + player._id}>
+                        to={'tournaments/edit/' + tournament._id}>
                     {t('buttons.edit')}
                   </Link>
                 </li>) : null}
             {isAdmin ? (
                 <li>
                   <button className="list-actions-button-delete"
-                          onClick={handleDeletePlayer}>
+                          onClick={handleDeleteTournament}>
                     {t('buttons.delete')}
                   </button>
                 </li>) : null}
@@ -58,4 +58,4 @@ const PlayerListRow = (props) => {
   )
 }
 
-export default PlayerListRow;
+export default TournamentListRow;

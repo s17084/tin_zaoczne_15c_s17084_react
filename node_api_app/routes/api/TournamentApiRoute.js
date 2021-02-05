@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const {isAuth, isAdmin, isAdminOrPlayer} = require('../../middleware/isAuth');
 
 const tournamentApiController = require('../../api/TournamentAPI');
 

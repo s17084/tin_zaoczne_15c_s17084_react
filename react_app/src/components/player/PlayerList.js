@@ -4,32 +4,41 @@ import {getPlayersList} from "../../api/api";
 import PlayerListTable from "./PlayerListTable";
 import ContentContainer from "../ContentContainer";
 import {useTranslation} from 'react-i18next';
+import {useRole} from "../../hooks/useRole";
 
-const PlayerList = () => {
+const PlayerList = (isLogged) => {
   const {t} = useTranslation();
+  const {isAdmin} = useRole();
 
   const [playerList, setPlayerList] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
   const [isLoaded, setLoaded] = useState(false);
 
   useEffect(() => {
     getPlayersList(setLoaded, setPlayerList, setError);
-  }, [])
+  }, [isLogged])
+
+  console.log({error:error})
 
   return (
       <ContentContainer contentTitle={t('pageTitles.players')}>
         {error ? (
-            <p>Error: {error.message}</p>
+            <p>{t('error.' + (error?.status ? error.status : 'unknown'))}</p>
         ) : !isLoaded ? (
             <p>{t("messages.dataLoading")}</p>
         ) : playerList.length > 0 ? (
             <>
               <PlayerListTable playerList={playerList}/>
+              {isAdmin ? (
               <p>
-                <Link className="button-add" to="players-form.html">
+                <Link className="button-add"
+                      to={{
+                        pathname: "/players/new",
+                        state: {isCreate: true, isEditable: true}
+                      }}>
                   {t('tables.playersTable.addNewPlayer')}
                 </Link>
-              </p>
+              </p> ) : null}
             </>
         ) : (
             <p>{t('messages.noData')}</p>

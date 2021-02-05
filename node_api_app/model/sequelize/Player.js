@@ -1,4 +1,4 @@
-var validator = require('validator');
+const validator = require('validator');
 const Sequelize = require('sequelize');
 const sequelize = require('../../config/sequelize/sequelize');
 
@@ -14,11 +14,11 @@ const Player = sequelize.define('Player', {
     allowNull: false,
     validate: {
       notEmpty: {
-        msg: "Field is required"
+        msg: "notEmpty"
       },
       len: {
         args: [2, 60],
-        msg: "Field must contain 2-60 characters"
+        msg: "2_60_chars"
       },
     }
   },
@@ -27,11 +27,11 @@ const Player = sequelize.define('Player', {
     allowNull: false,
     validate: {
       notEmpty: {
-        msg: "Field is required"
+        msg: "notEmpty"
       },
       len: {
         args: [2, 60],
-        msg: "Field must contain 2-60 characters"
+        msg: "2_60_chars"
       },
     }
   },
@@ -44,7 +44,7 @@ const Player = sequelize.define('Player', {
         console.log(value !== '');
         if (value !== '' && value !== null && !validator.isEmail(value)) {
           console.log('in if!')
-          throw new Error('Must be valid e-mail address');
+          throw new Error('validEmail');
         }
       }
     }
@@ -55,11 +55,11 @@ const Player = sequelize.define('Player', {
     unique: true,
     validate: {
       notEmpty: {
-        msg: "Field is required"
+        msg: "notEmpty"
       },
       is: {
         args: [/\d{6}/],
-        msg: "Must contain 6 digits"
+        msg: "6_Digits"
       }
     }
   },
@@ -70,13 +70,27 @@ const Player = sequelize.define('Player', {
       isBefore: {
         args: [new Date(new Date().setUTCFullYear(
             new Date().getUTCFullYear() - 16)).toISOString().split("T")[0]],
-        msg: 'Must be at least 16 years old'
+        msg: 'mustBe_16_YearsOld'
       }
     }
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: "notEmpty"
+      }
+    }
+  },
+  role: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: "notEmpty"
+      }
+    }
   }
 });
 

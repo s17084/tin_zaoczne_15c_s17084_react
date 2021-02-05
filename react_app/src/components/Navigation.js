@@ -1,6 +1,6 @@
 import React from "react"
 import {useTranslation} from 'react-i18next';
-import NavigationElement from "./player/NavigationElement";
+import NavigationElement from "./NavigationElement";
 
 const Navigation = () => {
   const {t} = useTranslation();

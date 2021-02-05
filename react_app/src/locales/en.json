@@ -1,16 +1,42 @@
 {
+  "error": {
+    "403": "Must be logged user to access resource",
+    "401": "No permission to access resource",
+    "unknown": "Unknown error occurred"
+  },
   "appName": "Squash Tournament Management System",
+  "login": {
+    "loggedInMsg": "Logged in: ",
+    "loginBtn": "Login",
+    "logoutBtn": "Logout",
+    "registerBtn": "Register",
+    "emailLabel": "Email:",
+    "passwordLabel": "Password:",
+    "wrongCredentials": "Invalid user or password"
+  },
   "pageTitles": {
     "mainPage": "Main page",
     "players": "Players",
     "playerDetails": "Player details",
+    "playerEdit": "Edit player",
+    "playerParticipations": "Player participations",
     "tournaments": "Tournaments",
+    "tournamentDetails": "Tournament details",
+    "tournamentEdit": "Edit tournament",
+    "tournamentParticipations": "Tournament participations",
     "participations": "Participations"
   },
   "buttons": {
     "details": "Details",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "editPlayer": "Edit player",
+    "addPlayer": "Add player",
+    "goBack": "Go back",
+    "saveChanges": "Save changes",
+    "editTournament": "Edit tournament",
+    "addTournament": "Add tournament"
   },
   "tables": {
     "playersTable": {
@@ -19,10 +45,67 @@
       "licenseNumber": "License number",
       "actions": "Actions",
       "addNewPlayer": "Add new player"
+    },
+    "tournamentTable": {
+      "name": "Name",
+      "date": "Date",
+      "rank": "Rank",
+      "actions": "Actions",
+      "addNewTournament": "Add new tournament"
+    },
+    "participationTable": {
+      "player": "Player",
+      "tournament": "Tournament",
+      "finalPosition": "Final position",
+      "actions": "Actions",
+      "addNewParticipation": "Add new participation"
     }
   },
   "messages": {
     "dataLoading": "Loading data...",
     "noData": "No data to display"
+  },
+  "forms": {
+    "player": {
+      "firstnameLabel": "Firstname:",
+      "lastnameLabel": "Lastname:",
+      "emailLabel": "Email:",
+      "licenseNumberLabel": "License number:",
+      "birthDateLabel": "Birth date:",
+      "playerParticipations": {
+        "tournaments": "Tournament",
+        "finalPosition": "Final position",
+        "pointsGained": "Rank points gained",
+        "pointsOverall": "Rank points overall"
+      }
+    },
+    "tournament": {
+      "nameLabel": "Name:",
+      "dateLabel": "Date:",
+      "prizePoolLabel": "Prize pool:",
+      "rankLabel": "Rank",
+      "tournamentParticipations": {
+        "player": "Player",
+        "finalPosition": "Final position",
+        "pointsGained": "Rank points gained",
+        "pointsOverall": "Rank points overall"
+      }
+    },
+    "placeholders": {
+      "2_60_chars": "2-60 characters",
+      "5_60_chars": "5-60 characters",
+      "email": "e.g. name@domain.com",
+      "licenseNumber": "6 digits number"
+    }
+  },
+  "validationErrors": {
+    "invalidForm": "Form has errors",
+    "notEmpty": "Field is required",
+    "mustBe_16_YearsOld": "Must be at least 16 years old",
+    "6_Digits": "Must be 6 digits number",
+    "validEmail": "Must be valid email address",
+    "2_60_chars": "Must contain 2-60 characters",
+    "5_60_chars": "Must contain 5-60 characters",
+    "unique": "Must be unique value"
   }
 }

@@ -12,6 +12,7 @@ const tournamentsRouter = require('./routes/tournamentsRoute');
 const playerApiRouter = require('./routes/api/PlayerApiRoute');
 const tournamentApiRouter = require('./routes/api/TournamentApiRoute');
 const participationApiRouter = require('./routes/api/ParticipationApiRoute');
+const authApiRouter = require('./routes/api/AuthApiRoute');
 const sequelizeInit = require('./config/sequelize/init');
 const session = require('express-session');
 
@@ -56,6 +57,7 @@ app.use('/tournaments', tournamentsRouter);
 app.use('/api/players', playerApiRouter);
 app.use('/api/tournaments', tournamentApiRouter);
 app.use('/api/participations', participationApiRouter);
+app.use('/api/auth', authApiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

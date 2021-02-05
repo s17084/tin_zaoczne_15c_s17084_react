@@ -1,28 +1,111 @@
 {
+  "error": {
+    "403": "Dostęp tylko dla zarejestrowanych użytkowników",
+    "401": "Brak odpowiednich uprawnień do zasobów",
+    "unknown": "Wystąpił nieoczekiwany błąd"
+  },
   "appName": "System Zarządania Turniejami Squash'a",
+  "login": {
+    "loggedInMsg": "Zalogowany: ",
+    "loginBtn": "Zaloguj",
+    "logoutBtn": "Wyloguj",
+    "registerBtn": "Zarejestruj",
+    "emailLabel": "Email:",
+    "passwordLabel": "Hasło:",
+    "wrongCredentials": "Błędny użytkownik lub hasło"
+  },
   "pageTitles": {
     "mainPage": "Strona główna",
     "players": "Zawodnicy",
     "playerDetails": "Szczegóły zawodnika",
+    "playerEdit": "Edycja zawodnika",
+    "playerParticipations": "Uczestnictwa zawodnika",
     "tournaments": "Turnieje",
+    "tournamentDetails": "Szczegóły turnieju",
+    "tournamentEdit": "Edycja turnieju",
+    "tournamentParticipations": "Uczestnictwa w turnieju",
     "participations": "Zapisy"
   },
   "buttons": {
     "details": "Szczegóły",
     "edit": "Edytuj",
-    "delete": "Usuń"
+    "delete": "Usuń",
+    "cancel": "Anuluj",
+    "editPlayer": "Edytuj zawodnika",
+    "addPlayer": "Dodaj zawodnika",
+    "goBack": "Powrót",
+    "saveChanges": "Zapisz zmiany",
+    "editTournament": "Edytuj turniej",
+    "addTournament": "Dodaj turniej"
   },
-  "tables":{
+  "tables": {
     "playersTable": {
       "firstname": "Imię",
       "lastname": "Nazwisko",
       "licenseNumber": "Numer licencji",
       "actions": "Akcje",
       "addNewPlayer": "Dodaj zawodnika"
+    },
+    "tournamentTable": {
+      "name": "Nazwa",
+      "date": "Data",
+      "rank": "Ranga",
+      "actions": "Akcje",
+      "addNewTournament": "Dodaj nowy turniej"
+    },
+    "participationTable": {
+      "player": "Zawodnik",
+      "tournament": "Turniej",
+      "finalPosition": "Miejsce",
+      "actions": "Akcje",
+      "addNewParticipation": "Dodaj uczestnictwo"
     }
   },
   "messages": {
     "dataLoading": "Ładowanie danych...",
     "noData": "Brak danych do wyświetlenia"
+  },
+  "forms": {
+    "player": {
+      "firstnameLabel": "Imię:",
+      "lastnameLabel": "Nazwisko:",
+      "emailLabel": "Email:",
+      "licenseNumberLabel": "Numer licencji:",
+      "birthDateLabel": "Data urodzenia:",
+      "playerParticipations": {
+        "tournaments": "Turniej",
+        "finalPosition": "Miejsce",
+        "pointsGained": "Punkty uzyskane",
+        "pointsOverall": "Punkty w rankingu"
+      }
+    },
+    "tournament": {
+      "nameLabel": "Nazwa:",
+      "dateLabel": "Data:",
+      "prizePoolLabel": "Suma nagród:",
+      "rankLabel": "Ranga",
+      "tournamentParticipations": {
+        "player": "Zawodnik",
+        "finalPosition": "Miejsce",
+        "pointsGained": "Punkty uzyskane",
+        "pointsOverall": "Punkty w rankingu"
+      }
+    },
+    "placeholders": {
+      "2_60_chars": "2-60 znaków",
+      "5_60_chars": "5-60 znaków",
+      "email": "np. nazwa@domena.com",
+      "licenseNumber": "6-cyfrowy numer"
+    }
+  },
+  "validationErrors": {
+    "invalidForm": "Formularz zawiera błędy",
+    "notEmpty": "Pole jest wymagane",
+    "mustBe_16_YearsOld": "Zawodnik musi mieć co najmniej 16 lat",
+    "6_Digits": "Musi składać się z 6 cyfr",
+    "validEmail": "Musi być poprawnym adresem email",
+    "2_60_chars": "Musi zawierać 2-60 znaków",
+    "5_60_chars": "Musi zawierać 5-60 znaków",
+    "unique": "Musi być wartością unikalną"
   }
 }

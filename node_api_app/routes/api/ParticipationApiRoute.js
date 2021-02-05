@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const {isAuth, isAdmin, isAdminOrPlayer} = require('../../middleware/isAuth');
 
-const participationApiController = require('../../api/ParticipationAPI');
+const ParticipationAPI = require('../../api/ParticipationAPI');
 
-router.get('/', participationApiController.getParticipations);
-router.get('/:participationId', participationApiController.getParticipationById);
-router.post('/', participationApiController.createParticipation);
-router.put('/:participationId', participationApiController.updateParticipation);
-router.delete('/:participationId', participationApiController.deleteParticipation);
+router.get('/', ParticipationAPI.getParticipations);
+router.get('/:participationId', ParticipationAPI.getParticipationById);
+router.post('/', ParticipationAPI.createParticipation);
+router.put('/:participationId', ParticipationAPI.updateParticipation);
+router.delete('/:participationId', ParticipationAPI.deleteParticipation);
 
 module.exports = router;

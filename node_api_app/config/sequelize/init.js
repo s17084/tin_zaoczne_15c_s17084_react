@@ -4,6 +4,7 @@ const authUtil = require('../../util/authUtils');
 const Player = require('../../model/sequelize/Player');
 const Tournament = require('../../model/sequelize/Tournament');
 const Participation = require('../../model/sequelize/Participation');
+const {Roles} = require('../../model/sequelize/Roles')
 
 const passHash = authUtil.hashPassword('password');
 
@@ -28,7 +29,7 @@ module.exports = () => {
 
   let allPlayers, allTournaments;
   return sequelize.sync(
-      // {force: true}
+      {force: true}
   )
   .then(() => {
     return Player.findAll();
@@ -42,7 +43,8 @@ module.exports = () => {
           email: 'dariusz@kulig.pl',
           licenseNumber: 123456,
           birthDate: new Date(Date.UTC(1990, 10, 10)),
-          password: passHash
+          password: passHash,
+          role: Roles.ADMIN
         },
         {
           firstname: 'Piotr',
@@ -50,7 +52,8 @@ module.exports = () => {
           email: 'piotr@piotrowski.pl',
           licenseNumber: 654321,
           birthDate: new Date(Date.UTC(1992, 11, 11)),
-          password: passHash
+          password: passHash,
+          role: Roles.PLAYER
         },
         {
           firstname: 'Adam',
@@ -58,7 +61,8 @@ module.exports = () => {
           email: 'adam@adamowicz.pl',
           licenseNumber: 112233,
           birthDate: new Date(Date.UTC(1988, 8, 8)),
-          password: passHash
+          password: passHash,
+          role: Roles.PLAYER
         }
       ])
       .then(() => {

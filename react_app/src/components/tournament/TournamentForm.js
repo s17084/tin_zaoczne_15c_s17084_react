@@ -1,31 +1,33 @@
 import React, {useEffect, useState} from "react";
-import {useParams, useHistory} from 'react-router-dom'
 import {useTranslation} from 'react-i18next';
-
-import ContentContainer from "../ContentContainer";
 import TextInputWithLabel from "../other/TextInputWithLabel";
 import FormButtonsCreate from "../other/FormButtonsCreate";
 import FormButtonsEdit from "../other/FormButtonsEdit";
 import FormButtonsDetails from "../other/FormButtonsDetails";
+import ContentContainer from "../ContentContainer";
+import {useHistory, useParams} from "react-router-dom";
+import TournamentParticipations from "./TournamentParticipations";
+import SelectInputWithLabel from "../other/SelectInputWithLabel";
+import {
+  // addTournament,
+  // updateTournament,
+  getTournamentById
+} from "../../api/api";
 
-import {getPlayerById, addPlayer, updatePlayer} from "../../api/api";
-import PlayerParticipations from "./PlayerParticipations";
-
-const playerFormSchema = {
+const tournamentFormSchema = {
   _id: -1,
-  firstname: "",
-  lastname: "",
-  email: "",
-  licenseNumber: "",
-  birthDate: "",
+  name: '',
+  date: '',
+  prizePool: null,
+  rank: null,
   participations: []
 }
 
-const PlayerForm = (props) => {
+const TournamentForm = (props) => {
   const {t} = useTranslation();
-  const {playerId} = useParams();
+  const {tournamentId} = useParams();
 
-  const [formValues, setFormValues] = useState(playerFormSchema);
+  const [formValues, setFormValues] = useState(tournamentFormSchema);
   const [formErrors, setFormErrors] = useState([]);
   const [error, setError] = useState({});
   const [isLoaded, setLoaded] = useState(false);
@@ -47,73 +49,70 @@ const PlayerForm = (props) => {
 
   const handleCreate = () => {
     let response;
-    addPlayer(formValues)
-    .then((data) => {
-      response = data;
-      if (response.status === 201) {
-        console.log('PLAYER_CREATED');
-        return data.json();
-      } else if (response.status === 500) {
-        console.log('PLAYER_CREATE_ERROR_500');
-        return data.json();
-      }
-    })
-    .then((data) => {
-      if (response.status === 500) {
-        setFormErrors(data);
-      } else if (response.status === 201) {
-        history.push("/players")
-      }
-    })
+    // addTournament(formValues)
+    // .then((data) => {
+    //   response = data;
+    //   if (response.status === 201) {
+    //     console.log('PLAYER_CREATED');
+    //     return data.json();
+    //   } else if (response.status === 500) {
+    //     console.log('PLAYER_CREATE_ERROR_500');
+    //     return data.json();
+    //   }
+    // })
+    // .then((data) => {
+    //   if (response.status === 500) {
+    //     setFormErrors(data);
+    //   } else if (response.status === 201) {
+    //     history.push("/players")
+    //   }
+    // })
   }
 
   const handleUpdate = () => {
     let response;
-    updatePlayer(formValues)
-    .then((data) => {
-      response = data;
-      if (response.status === 200) {
-        console.log('PLAYER_CREATED');
-        return data.json();
-      } else if (response.status === 500) {
-        console.log('PLAYER_CREATE_ERROR_500');
-        return data.json();
-      }
-    })
-    .then((data) => {
-      if (response.status === 500) {
-        setFormErrors(data);
-      } else if (response.status === 200) {
-        history.push("/players")
-      }
-    })
+    // updateTournament(formValues)
+    // .then((data) => {
+    //   response = data;
+    //   if (response.status === 200) {
+    //     console.log('PLAYER_CREATED');
+    //     return data.json();
+    //   } else if (response.status === 500) {
+    //     console.log('PLAYER_CREATE_ERROR_500');
+    //     return data.json();
+    //   }
+    // })
+    // .then((data) => {
+    //   if (response.status === 500) {
+    //     setFormErrors(data);
+    //   } else if (response.status === 200) {
+    //     history.push("/players")
+    //   }
+    // })
   }
 
-  const customSetFormValues = (player) => {
+  const customSetFormValues = (tournament) => {
+    console.log(tournament)
     setFormValues({
-      _id: player._id,
-      firstname: player.firstname,
-      lastname: player.lastname,
-      email: player.email,
-      licenseNumber: player.licenseNumber,
-      birthDate: player.birthDate ? player.birthDate.split("T")[0] : "",
-      participations: player.participations
+      _id: tournament._id,
+      name: tournament.name,
+      date: tournament.date.split('T')[0],
+      prizePool: tournament.prizePool,
+      rank: tournament.rank,
+      participations: tournament.participations
     })
   }
 
   useEffect(() => {
     if (!isCreate) {
-      getPlayerById(setLoaded, customSetFormValues, setError, playerId);
-    }else{
+      getTournamentById(setLoaded, customSetFormValues, setError, tournamentId);
+    } else {
       setLoaded(true);
     }
-  }, [playerId, isCreate]);
-
-  console.log({error: error})
-  console.log({formErrors: formErrors})
+  }, [tournamentId, isCreate]);
 
   return (
-      <ContentContainer contentTitle={t('pageTitles.playerDetails')}>
+      <ContentContainer contentTitle={t('pageTitles.tournamentDetails')}>
         <script type="application/javascript" src="/js/validationCommon.js"/>
         <script type="application/javascript"
                 src="/js/validationPlayerForm.js"/>
@@ -126,64 +125,49 @@ const PlayerForm = (props) => {
                 onSubmit={handleSubmit}
             >
               <TextInputWithLabel
-                  id="firstname"
-                  labelText={t('forms.player.firstnameLabel')}
+                  id="name"
+                  labelText={t('forms.tournament.nameLabel')}
                   type="text"
                   labelClass=""
                   inputClass=''
                   formValues={formValues}
                   setValue={setValue}
-                  placeholder={t('forms.placeholders.2_60_chars')}
+                  placeholder={t('forms.placeholders.5_60_chars')}
                   disabled={!isEditable}
                   errorSpan={isEditable}
                   formErrors={formErrors}
               />
               <TextInputWithLabel
-                  id="lastname"
-                  labelText={t('forms.player.lastnameLabel')}
-                  type="text"
-                  labelClass=""
-                  inputClass=''
-                  formValues={formValues}
-                  setValue={setValue}
-                  resetError={() => ""}
-                  placeholder={t('forms.placeholders.2_60_chars')}
-                  disabled={!isEditable}
-                  errorSpan={isEditable}
-                  formErrors={formErrors}
-              />
-              <TextInputWithLabel
-                  id="email"
-                  labelText={t('forms.player.emailLabel')}
-                  type="email"
-                  labelClass=""
-                  inputClass=''
-                  formValues={formValues}
-                  setValue={setValue}
-                  resetError={() => ""}
-                  placeholder={t('forms.placeholders.email')}
-                  disabled={!isEditable}
-                  errorSpan={isEditable}
-                  formErrors={formErrors}
-              />
-              <TextInputWithLabel
-                  id="licenseNumber"
-                  labelText={t('forms.player.licenseNumberLabel')}
-                  type="text"
-                  labelClass=""
-                  inputClass=''
-                  formValues={formValues}
-                  setValue={setValue}
-                  resetError={() => ""}
-                  placeholder={t('forms.placeholders.licenseNumber')}
-                  disabled={!isEditable}
-                  errorSpan={isEditable}
-                  formErrors={formErrors}
-              />
-              <TextInputWithLabel
-                  id="birthDate"
-                  labelText={t('forms.player.birthDateLabel')}
+                  id="date"
+                  labelText={t('forms.tournament.dateLabel')}
                   type="date"
+                  labelClass=""
+                  inputClass=''
+                  formValues={formValues}
+                  setValue={setValue}
+                  resetError={() => ""}
+                  disabled={!isEditable}
+                  errorSpan={isEditable}
+                  formErrors={formErrors}
+              />
+              <SelectInputWithLabel
+                  id={"RANK"}
+                  options={["A", "B+", "C"]}
+                  labelText={t('forms.tournament.rankLabel')}
+                  labelClass=""
+                  inputClass=""
+                  formValues={formValues}
+                  setValue={setValue}
+                  disabled={!isEditable}
+                  errorSpan={isEditable}
+                  formErrors={formErrors}
+                  isCreate={isCreate}
+              />
+              <TextInputWithLabel
+                  id="prizePool"
+                  labelText={t('forms.tournament.dateLabel')}
+                  type="number"
+                  step="0.01"
                   labelClass=""
                   inputClass=''
                   formValues={formValues}
@@ -199,7 +183,7 @@ const PlayerForm = (props) => {
                     <FormButtonsCreate
                         createLabel={t('buttons.addPlayer')}
                         formValid={formErrors.length === 0}
-                        cancelUrl={"/players"}
+                        cancelUrl={"/tournaments"}
                     />
                 ) : isEditable ? (
                     <FormButtonsEdit
@@ -208,8 +192,8 @@ const PlayerForm = (props) => {
                     />
                 ) : (
                     <FormButtonsDetails
-                        editPath={"/players/edit/" + playerId}
-                        editLabel={t('buttons.editPlayer')}
+                        editPath={"/tournaments/edit/" + tournamentId}
+                        editLabel={t('buttons.editTournament')}
                         elementId={formValues._id}
                     />
                 )}
@@ -219,10 +203,11 @@ const PlayerForm = (props) => {
             <p>{t("messages.dataLoading")}</p>
         )}
         {!isEditable ? (
-            <PlayerParticipations participations={formValues.participations}/>
+            <TournamentParticipations
+                participations={formValues.participations}/>
         ) : null}
       </ContentContainer>
   )
 }
 
-export default PlayerForm;
+export default TournamentForm;
