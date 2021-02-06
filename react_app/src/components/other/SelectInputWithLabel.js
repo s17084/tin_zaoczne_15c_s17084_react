@@ -14,7 +14,7 @@ const SelectInputWithLabel = (props) => {
     errorSpan,
     formErrors,
     isCreate,
-    errorParams
+    // errorParams
   } = props;
 
   const [error, setError] = useState("");
@@ -23,7 +23,6 @@ const SelectInputWithLabel = (props) => {
     setError("");
     const obj = {};
     obj[id] = event.target.value;
-    console.log(event.target.value)
     setValue(obj);
   }
 
@@ -32,9 +31,7 @@ const SelectInputWithLabel = (props) => {
       const formError = formErrors.find(e => e.path.includes(id))?.message
       setError(formError)
     }
-  }, [])
-
-  console.log({options: options})
+  }, [formErrors, id])
 
   return (
       <>
@@ -45,19 +42,21 @@ const SelectInputWithLabel = (props) => {
             id={id}
             onInput={handleChange}
             className={(inputClass + (error ? ' error-input' : null)).trim()}
-            disabled={disabled}
-        >
+            disabled={disabled}>
           <option
               disabled
-              value
+              value={-1}
               selected={isCreate}
-              key={-1}
-          >--
+              key={"defaultKey"}>
+            --
           </option>
-          {options.map(option =>
-              <option selected={option.selected} value={option.key}>
-                {option.value}
-              </option>
+          {options.map(option => {
+            console.log(option)
+                return (<option selected={option.selected} value={option.key}
+                               key={option.key}>
+                  {option.value}
+                </option>)
+              }
           )}
         </select>
         {errorSpan ? (

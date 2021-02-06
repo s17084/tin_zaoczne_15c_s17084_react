@@ -1,6 +1,5 @@
 import React from "react";
 import {useTranslation} from 'react-i18next';
-import TournamentListRow from "../tournament/TournamentListRow";
 import ParticipationListTableRow from "./ParticipationListTableRow";
 
 const ParticipationListTable = (props) => {

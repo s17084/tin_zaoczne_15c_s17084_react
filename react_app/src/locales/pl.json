@@ -106,7 +106,8 @@
       "email": "np. nazwa@domena.com",
       "licenseNumber": "6-cyfrowy numer",
       "finalPosition": "Zajęte miejsce",
-      "numberOfPoints": "Ilość punktów"
+      "numberOfPoints": "Ilość punktów",
+      "prizePool": "Pula nagród w PLN"
     }
   },
   "validationErrors": {
@@ -120,7 +121,10 @@
     "5_60_chars": "Musi zawierać 5-60 znaków",
     "unique": "Musi być wartością unikalną",
     "futureDate": "Musi być przyszłą datą",
-    "minPrize": "Musi wynosić co najmniej {minPrize} PLN",
-    "validRank": "Musi być poprawną kategorią"
+    "minPrizeA": "Musi wynosić co najmniej 1500 PLN",
+    "minPrizeB+": "Musi wynosić co najmniej 500 PLN",
+    "minPrizeC": "Musi wynosić co najmniej 100 PLN",
+    "validRank": "Musi być poprawną kategorią",
+    "playerAlreadyAssigned": "Zawodnik jest już zapisany do turnieju"
   }
 }

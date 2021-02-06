@@ -32,7 +32,7 @@ const TextInputWithLabel = (props) => {
       const formError = formErrors.find(e => e.path.includes(id))?.message
       setError(formError)
     }
-  }, [formErrors])
+  }, [formErrors, id])
 
   return (
       <>

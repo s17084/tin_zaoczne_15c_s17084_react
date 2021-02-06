@@ -1,4 +1,3 @@
-import React from "react";
 import Roles from "./Roles";
 
 const jwt = require('jsonwebtoken')

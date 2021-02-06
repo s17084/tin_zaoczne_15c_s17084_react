@@ -42,7 +42,7 @@ const PlayerForm = (props) => {
     event.preventDefault();
     if (isCreate) {
       handleCreate();
-    } else {
+    } else if(isEditable) {
       handleUpdate();
     }
   }

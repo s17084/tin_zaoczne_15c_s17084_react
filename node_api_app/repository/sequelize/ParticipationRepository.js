@@ -53,7 +53,11 @@ exports.createParticipation = (data) => {
 };
 
 exports.updateParticipation = (participationId, data) => {
-  const dataCopy = {...data};
+  const dataCopy = {
+    ...data,
+    playerId: data.player,
+    tournamentId: data.tournament
+  };
 
   dataCopy.finalPosition = data.finalPosition
       ? data.finalPosition
@@ -65,7 +69,27 @@ exports.updateParticipation = (participationId, data) => {
       ? data.rankPointsOverall
       : null;
 
-  return Participation.update(dataCopy, {where: {_id: participationId}});
+  console.log({dataCopy: dataCopy})
+  return Participation.update(parseParticipationData(participationId, data),
+      {where: {_id: participationId}});
+}
+
+const parseParticipationData = (participationId, data) => {
+  const dataCopy = {
+    ...data, playerId: data.player,
+    tournamentId: data.tournament
+  };
+
+  dataCopy.finalPosition = data.finalPosition
+      ? data.finalPosition
+      : null;
+  dataCopy.rankPointsGained = data.rankPointsGained
+      ? data.rankPointsGained
+      : null;
+  dataCopy.rankPointsOverall = data.rankPointsOverall
+      ? data.rankPointsOverall
+      : null;
+  return dataCopy;
 }
 
 exports.deleteParticipation = (participationId) => {

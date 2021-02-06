@@ -20,9 +20,9 @@ const participationFormSchema = {
   _id: -1,
   player: {},
   tournament: {},
-  finalPosition: null,
-  rankPointsGained: null,
-  rankPointsOverall: null
+  finalPosition: '',
+  rankPointsGained: '',
+  rankPointsOverall: ''
 }
 
 const ParticipationForm = (props) => {
@@ -47,7 +47,7 @@ const ParticipationForm = (props) => {
     event.preventDefault();
     if (isCreate) {
       handleCreate();
-    } else {
+    } else if(isEditable) {
       handleUpdate();
     }
   }
@@ -57,13 +57,11 @@ const ParticipationForm = (props) => {
     addParticipation(formValues)
     .then((data) => {
       response = data;
-      console.log(data)
       if (response.status === 201 || response.status === 500) {
         return data.json();
       }
     })
     .then((data) => {
-      console.log(data)
       if (response.status === 500) {
         setFormErrors(data);
       } else if (response.status === 201) {
@@ -93,11 +91,10 @@ const ParticipationForm = (props) => {
   }
 
   const customSetFormValues = (participation) => {
-    console.log(participation)
     setFormValues({
       _id: participation._id,
-      player: participation.player,
-      participation: participation.tournament,
+      player: participation.player._id,
+      tournament: participation.tournament._id,
       finalPosition: participation.finalPosition,
       rankPointsGained: participation.rankPointsGained,
       rankPointsOverall: participation.rankPointsOverall
@@ -108,33 +105,37 @@ const ParticipationForm = (props) => {
     if (!isCreate) {
       getParticipationById(setLoaded, customSetFormValues, setError,
           participationId);
-    } else {
-      setLoaded(true);
     }
-  }, [participationId, isCreate]);
+    setLoaded(true);
+  }, []);
 
   useEffect(() => {
-    getPlayersList(setLoaded, playersList, setError);
-    getTournamentList(setLoaded, setTournaments, setError);
-    console.log("USE EFFECT")
-  }, [])
+    getPlayersList(setLoaded, setPlayersList, setError);
+    getTournamentList(setLoaded, setTournamentsList, setError);
+  }, [formValues])
 
-  const playersList = (data) => {
-    console.log()
-    console.log('SET PLAYER LIST')
+  const setPlayersList = (data) => {
     const playersList = [];
-    console.log(formValues)
     data.forEach(player => {
-      console.log(player._id, formValues.player._id)
-      console.log(player.lastname, player._id === formValues.player._id)
       playersList.push({
         key: player._id,
         value: player.firstname + ' ' + player.lastname,
-        selected: player._id === formValues.player._id
+        selected: player._id === formValues.player
       })
     })
-    console.log(playersList)
     setPlayers(playersList);
+  }
+
+  const setTournamentsList = (data) => {
+    const tournamentsList = [];
+    data.forEach(tournament => {
+      tournamentsList.push({
+        key: tournament._id,
+        value: tournament.name,
+        selected: tournament._id === formValues.tournament
+      })
+    })
+    setTournaments(tournamentsList);
   }
 
   return (
@@ -152,7 +153,7 @@ const ParticipationForm = (props) => {
             >
               <SelectInputWithLabel
                   id="player"
-                  options={() => playersList(players)}
+                  options={players}
                   labelText={t('forms.participation.playerLabel')}
                   labelClass=""
                   inputClass=""
@@ -165,7 +166,7 @@ const ParticipationForm = (props) => {
               />
               <SelectInputWithLabel
                   id="tournament"
-                  options={[]}
+                  options={tournaments}
                   labelText={t('forms.participation.tournamentLabel')}
                   labelClass=""
                   inputClass=""

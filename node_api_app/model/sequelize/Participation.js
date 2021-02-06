@@ -36,7 +36,7 @@ const Participation = sequelize.define('Participation', {
         })
         .then(result => {
           if (result.length > 0) {
-            return next('unique');
+            return next('playerAlreadyAssigned');
           }
           return next();
         })

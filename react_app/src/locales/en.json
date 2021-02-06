@@ -106,7 +106,8 @@
       "email": "e.g. name@domain.com",
       "licenseNumber": "6 digits number",
       "finalPosition": "Final player position",
-      "numberOfPoints": "Number of points"
+      "numberOfPoints": "Number of points",
+      "prizePool": "Price pool in PLN"
     }
   },
   "validationErrors": {
@@ -120,7 +121,10 @@
     "5_60_chars": "Must contain 5-60 characters",
     "unique": "Must be unique value",
     "futureDate": "Must be future date",
-    "minPrize": "Must be at least {minPrize} PLN",
-    "validRank": "Must be valid category"
+    "minPrizeA": "Must be at least 1500 PLN",
+    "minPrizeB+": "Must be at least 500 PLN",
+    "minPrizeC": "Must be at least 100 PLN",
+    "validRank": "Must be valid category",
+    "playerAlreadyAssigned": "Player already assigned to tournament"
   }
 }

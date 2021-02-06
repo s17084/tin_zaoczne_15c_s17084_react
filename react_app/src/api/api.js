@@ -58,9 +58,8 @@ export const addTournament = (tournamentData) => {
 
 export const addParticipation = (participationData) => {
   const reqBody = JSON.stringify({
-    _id: participationData._id,
-    playerId: participationData.playerId,
-    participationId: participationData.participationId,
+    player: participationData.player,
+    tournament: participationData.tournament,
     finalPosition: participationData.finalPosition,
     rankPointsGained: participationData.rankPointsGained,
     rankPointsOverall: participationData.rankPointsOverall
@@ -96,9 +95,8 @@ export const updateTournament = (tournamentData) => {
 
 export const updateParticipation = (participationData) => {
   const reqBody = JSON.stringify({
-    _id: participationData._id,
-    playerId: participationData.playerId,
-    participationId: participationData.participationId,
+    player: participationData.player,
+    tournament: participationData.tournament,
     finalPosition: participationData.finalPosition,
     rankPointsGained: participationData.rankPointsGained,
     rankPointsOverall: participationData.rankPointsOverall

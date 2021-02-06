@@ -44,7 +44,7 @@ const Tournament = sequelize.define('Tournament', {
         if(this.rank !== ''){
           const minPrize = AVAILABLE_RANKS[this.rank]
           if(value < minPrize) {
-            throw new Error('minPrize')
+            throw new Error('minPrize' + this.rank)
           }
         }
       }

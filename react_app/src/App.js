@@ -81,7 +81,7 @@ function App() {
 
   useEffect(() => {
     handleTokenExpired()
-  }, [])
+  }, [tokenExpired])
 
   return (
       <Router>

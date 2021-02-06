@@ -7,7 +7,7 @@ import {deleteParticipation} from "../../api/api";
 const ParticipationTableRow = (props) => {
   const {t} = useTranslation();
   const {participation} = props;
-  const {isAdmin, isPlayer, loggedUserId} = useRole();
+  const {isAdmin} = useRole();
 
   const handleDeleteParticipation = () => {
     let response;

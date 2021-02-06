@@ -8,7 +8,7 @@ import {getParticipationList} from "../../api/api";
 
 const ParticipationList = () => {
   const {t} = useTranslation();
-  const {isAdmin, isPlayer, loggedUserId} = useRole();
+  const {isAdmin} = useRole();
 
   const [participationList, setParticipationList] = useState([]);
   const [error, setError] = useState(null);

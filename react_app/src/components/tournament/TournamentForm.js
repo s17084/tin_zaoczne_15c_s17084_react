@@ -19,8 +19,8 @@ const tournamentFormSchema = {
   _id: -1,
   name: '',
   date: '',
-  prizePool: null,
-  rank: null,
+  prizePool: '',
+  rank: '',
   participations: []
 }
 
@@ -44,7 +44,7 @@ const TournamentForm = (props) => {
     event.preventDefault();
     if (isCreate) {
       handleCreate();
-    } else {
+    } else if(isEditable) {
       handleUpdate();
     }
   }
@@ -54,13 +54,11 @@ const TournamentForm = (props) => {
     addTournament(formValues)
     .then((data) => {
       response = data;
-      console.log(data)
       if (response.status === 201 || response.status === 500) {
         return data.json();
       }
     })
     .then((data) => {
-      console.log(data)
       if (response.status === 500) {
         setFormErrors(data);
       } else if (response.status === 201) {
@@ -184,6 +182,7 @@ const TournamentForm = (props) => {
                   inputClass=''
                   formValues={formValues}
                   setValue={setValue}
+                  placeholder={t('forms.placeholders.prizePool')}
                   resetError={() => ""}
                   disabled={!isEditable}
                   errorSpan={isEditable}
